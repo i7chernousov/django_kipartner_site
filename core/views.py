@@ -49,8 +49,10 @@ def news_list(request):
     news = News.objects.filter(is_published=True)
     return render(request, 'core/news_list.html', {"news": news})
 
+from django.shortcuts import render
+
 def custom_404(request, exception=None):
-    return render(request, 'core/404.html', status=404)
+    return render(request, "core/404.html", status=404)
 
 def sitemap_page(request):
     pages = {
