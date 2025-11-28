@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Блог{% endblock %}
+
+{% block content %}
+
+<section class="section container">
+
+    <h1>Блог</h1>
+
+    {% for cat in categories %}
+    <h2>{{ cat.name }}</h2>
+
+    <div class="articles-grid">
+
+        {% for article in cat.articles.all %}
+        <div class="article-card">
+
+            {% if article.image %}
+            <img class="article-img" src="{{ article.image.url }}" alt="{{ article.title }}">
+            {% endif %}
+
+            <h3 class="article-title">
+                <a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a>
+            </h3>
+
+            <p class="article-preview">
+                {{ article.content|truncatechars:200 }}
+            </p>
+
+        </div>
+        {% empty %}
+        <p>Нет статей.</p>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Ки Партнер ИТ — Главная{% endblock %}
+
+{% block content %}
+
+<!-- О компании -->
+<section class="section container">
+    <h2>О компании</h2>
+    <p>
+        ООО «Ки Партнер ИТ» — команда специалистов в области информационных технологий.
+        Мы создаём, поддерживаем и внедряем цифровые решения для бизнеса любой сложности.
+    </p>
+</section>
+
+<!-- Услуги -->
+<section class="section container">
+    <h2>Наши ключевые услуги</h2>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Аутсорсинг IT-инфраструктуры</h3>
+            <p>Поддержка серверов, сетей и рабочих станций. Мониторинг, безопасность, SLA.</p>
+        </div>
+
+        <div class="card">
+            <h3>Разработка веб-сервисов</h3>
+            <p>Создание корпоративных порталов, API, CRM/ERP-систем под запрос клиента.</p>
+        </div>
+
+        <div class="card">
+            <h3>Интеграция и сопровождение 1С</h3>
+            <p>Настройка, автоматизация процессов, оптимизация и миграции в облако.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Новости -->
+<section class="section container">
+    <h2>Последние новости</h2>
+
+    {% for item in latest_news %}
+    <div class="news-item">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.content|truncatechars:200 }}</p>
+        <small>{{ item.created_at|date:"d.m.Y" }}</small>
+    </div>
+    {% empty %}
+    <p>Новостей пока нет.</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

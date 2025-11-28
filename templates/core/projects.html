@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Проекты — Ки Партнер ИТ{% endblock %}
+
+{% block content %}
+
+<section class="section container">
+
+    <h1>Наши проекты</h1>
+
+    {% for cat in categories %}
+    <h2>{{ cat.name }}</h2>
+
+    <div class="projects-grid">
+
+        {% for article in cat.articles.all %}
+        <div class="project-card">
+
+            {% if article.image %}
+            <img class="project-img" src="{{ article.image.url }}" alt="{{ article.title }}">
+            {% endif %}
+
+            <div class="project-body">
+                <h3 class="project-title">
+                    <a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a>
+                </h3>
+
+                <p class="project-preview">
+                    {{ article.content|truncatechars:200 }}
+                </p>
+            </div>
+
+        </div>
+        {% empty %}
+        <p>Нет проектов в этой категории.</p>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

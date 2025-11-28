@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Поиск{% endblock %}
+
+{% block content %}
+<h2>Результаты поиска: "{{ query }}"</h2>
+
+<h3>Статьи</h3>
+<ul>
+{% for a in articles %}
+    <li><a href="{% url 'article_detail' a.slug %}">{{ a.title }}</a></li>
+{% empty %}
+    <li>Нет статей</li>
+{% endfor %}
+</ul>
+
+<h3>Новости</h3>
+<ul>
+{% for n in news %}
+    <li>{{ n.title }}</li>
+{% empty %}
+    <li>Нет новостей</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

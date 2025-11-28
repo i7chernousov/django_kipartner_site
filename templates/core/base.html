@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Ки Партнер ИТ{% endblock %}</title>
+
+    {% load static %}
+
+    {% if request.COOKIES.site_theme == "accessible" %}
+        <link rel="stylesheet" href="{% static 'core/css/style_accessible.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'core/css/style_default.css' %}">
+    {% endif %}
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="header-container">
+
+        <div class="logo">
+            <a href="/">Ки Партнер ИТ</a>
+        </div>
+
+        <nav class="nav">
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'services' %}">Услуги</a>
+            <a href="{% url 'projects' %}">Проекты</a>
+            <a href="{% url 'blog' %}">Блог</a>
+            <a href="{% url 'contacts' %}">Контакты</a>
+        </nav>
+
+        <form action="{% url 'search' %}" method="get" class="search-form">
+            <input type="text" name="q" placeholder="Поиск..." required>
+            <button type="submit">🔍</button>
+        </form>
+
+        <div class="header-buttons">
+            <a class="btn-small" href="{% url 'set_theme' 'default' %}">Обычная</a>
+            <a class="btn-small" href="{% url 'set_theme' 'accessible' %}">Слабовидящие</a>
+
+            {% if user.is_authenticated %}
+                <span class="user-label">Привет, {{ user.username }}</span>
+
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-small" style="border:none; cursor:pointer;">
+                        Выйти
+                    </button>
+                </form>
+
+
+            {% else %}
+                <a class="btn-small" href="{% url 'login' %}">Войти</a>
+                <a class="btn-small" href="{% url 'register' %}">Регистрация</a>
+            {% endif %}
+        </div>
+
+    </div>
+</header>
+
+<!-- ===== CONTENT ===== -->
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>© 2025 ООО «Ки Партнер ИТ»</p>
+</footer>
+
+</body>
+</html>

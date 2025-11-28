@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Карта сайта{% endblock %}
+
+{% block content %}
+<h2>Карта сайта</h2>
+
+<ul>
+    {% for title, url in pages.items %}
+        <li><a href="{{ url }}">{{ title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
